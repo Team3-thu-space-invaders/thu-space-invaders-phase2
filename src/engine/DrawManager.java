@@ -256,7 +256,6 @@ public final class DrawManager {
 	 *
 	 * @param screen Screen to draw in.
 	 */
-	Color[] bg_colors = {Color.LIGHT_GRAY, Color.GRAY, Color.DARK_GRAY};
 	public void initDrawing(final Screen screen) {
 		backBuffer = new BufferedImage(screen.getWidth(), screen.getHeight(),
 				BufferedImage.TYPE_INT_RGB);
@@ -264,11 +263,13 @@ public final class DrawManager {
 		graphics = frame.getGraphics();
 		backBufferGraphics = backBuffer.getGraphics();
 
+		Color[] bg_colors = {new Color(153, 206, 255), new Color(70, 132, 194), new Color(5, 84, 163)};
+
 		if(GameScreen.lives > 0 && GameScreen.lives <= 3){
 			backBufferGraphics.setColor(bg_colors[3 - GameScreen.lives]);
 		}
 		else{
-			backBufferGraphics.setColor(Color.BLACK);
+			backBufferGraphics.setColor(new Color(14, 49, 84));
 		}
 
 		backBufferGraphics
