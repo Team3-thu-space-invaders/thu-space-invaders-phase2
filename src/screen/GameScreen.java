@@ -9,7 +9,10 @@ import java.util.Set;
 import engine.*;
 import entity.*;
 
+import static engine.Core.startMusic;
 import static engine.Core.stopMusic;
+import static engine.SoundManager.Sound.getItem;
+import static engine.SoundManager.Sound.ingame;
 
 
 /**
@@ -300,7 +303,7 @@ public class GameScreen extends Screen {
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
 			if(this.lives==0) {
-				stopMusic("background");
+				stopMusic(ingame);
 				this.ship.gameOver();
 			}
 		}
@@ -584,7 +587,7 @@ public class GameScreen extends Screen {
 				recyclable.add(item);
 				Random random = new Random();
 				int per = random.nextInt(6);
-
+				startMusic(getItem);
 				if (per == 0) {
 					if (this.lives < 3) {
 						this.lives++;
