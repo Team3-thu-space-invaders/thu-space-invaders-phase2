@@ -70,7 +70,7 @@ public class Ship extends Entity {
 
     private Color baseColor = Color.green;
 
-    private SpriteType baseSprite = SpriteType.Ship;
+    private SpriteType baseSprite = SpriteType.ShipC;
 
     public Ship(final int positionX, final int positionY, Color color) {
         super(positionX, positionY, 13 * 2, 8 * 2, color);
