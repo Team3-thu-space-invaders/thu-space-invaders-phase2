@@ -182,7 +182,8 @@ public final class DrawManager {
          * Current Ship Lives
          */
         ShipLive,
-        ShipB;
+        ShipB,
+        ShipC;
     }
 
     ;
@@ -217,6 +218,7 @@ public final class DrawManager {
             spriteMap.put(SpriteType.Item, new boolean[9][8]);
             spriteMap.put(SpriteType.ShipLive, new boolean[13][8]);
             spriteMap.put(SpriteType.ShipB, new boolean[13][8]);
+            spriteMap.put(SpriteType.ShipC, new boolean[13][8]);
             fileManager.loadSprite(spriteMap);
             logger.info("Finished loading the sprites.");
 
