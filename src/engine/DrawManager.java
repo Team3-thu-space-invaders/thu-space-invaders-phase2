@@ -837,11 +837,11 @@ public final class DrawManager {
 		String accuracy = "Accuracy";
 		String stage = "Stage";
 
-		backBufferGraphics.setColor(Color.gray);
+		backBufferGraphics.setColor(Color.black);
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.fillRect(0, 105, 450, 35);
 
-		backBufferGraphics.setColor(Color.red);
+		backBufferGraphics.setColor(Color.yellow);
 		backBufferGraphics.drawString(name, 13, 105 + 24);
 		backBufferGraphics.drawString(score, 63, 129);
 		backBufferGraphics.drawString(killed, 128, 129);
