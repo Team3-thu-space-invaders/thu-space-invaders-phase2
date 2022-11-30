@@ -839,15 +839,14 @@ public final class DrawManager {
 
 		backBufferGraphics.setColor(Color.black);
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.fillRect(0, 105, 450, 35);
-
+		backBufferGraphics.fillRect(0, 105, 480, 35);
 		backBufferGraphics.setColor(Color.yellow);
 		backBufferGraphics.drawString(name, 13, 105 + 24);
 		backBufferGraphics.drawString(score, 63, 129);
-		backBufferGraphics.drawString(killed, 128, 129);
-		backBufferGraphics.drawString(bullet, 203, 129);
-		backBufferGraphics.drawString(accuracy, 290, 129);
-		backBufferGraphics.drawString(stage, 388, 129);
+		backBufferGraphics.drawString(killed, 125, 129);
+		backBufferGraphics.drawString(bullet, 195, 129);
+		backBufferGraphics.drawString(accuracy, 280, 129);
+		backBufferGraphics.drawString(stage, 377, 129);
 
 	}
 
