@@ -19,18 +19,16 @@ public class SoundManager {
         getItem
     }
 
-    String ingame = "Bgm/background.wav";
+    String ingame = "src/bgm/background.wav";
     Clip ingameClip = null;
-
-    String main = "Bgm/main.wav";
-
+    String main = "src/bgm/main.wav";
     Clip mainClip = null;
-    String bullet = "Bgm/ball.wav";
-    String attack = "Bgm/attack.wav";
-    String gameOver = "Bgm/gameOver.wav";
-    String hit = "Bgm/hit.wav";
-    String click = "Bgm/click.wav";
-    String getItem = "Bgm/getItem.wav";
+    String bullet = "src/bgm/ball.wav";
+    String attack = "src/bgm/attack.wav";
+    String gameOver = "src/bgm/gameOver.wav";
+    String hit = "src/bgm/hit.wav";
+    String click = "src/bgm/click.wav";
+    String getItem = "src/bgm/getItem.wav";
 
     public void startMusic(Sound what) {
         String bgm = null;
