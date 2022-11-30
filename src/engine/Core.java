@@ -248,7 +248,6 @@ public final class Core {
 				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 						+ " setting screen at " + FPS + " fps.");
 				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing setting screen.");
 				break;
 
 				case 101:
