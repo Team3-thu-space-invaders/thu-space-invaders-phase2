@@ -9,18 +9,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Scanner;
 
-import entity.Ship;
 import screen.*;
 
 import javax.sound.sampled.Clip;
 
-import engine.Inventory.InventoryEntry;
+import static engine.SoundManager.Sound.*;
+
 
 /**
  * Implements core game logic.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
  */
 public final class Core {
 
@@ -29,7 +28,9 @@ public final class Core {
 	 */
 	public static int diff;
 
-	/** Bgm player */
+	/**
+	 * Bgm player
+	 */
 	private static Clip clip;
 
 	/**
@@ -142,17 +143,19 @@ public final class Core {
 	private static ConsoleHandler consoleHandler;
 
 
-	/** Test only !!
+	/**
+	 * Test only !!
 	 * You can add item max 15
 	 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method
 	 * Ship skin itemid is start 1000 ~
-	 * Bgm itemid is start 2000 ~ */
+	 * Bgm itemid is start 2000 ~
+	 */
 	private static final Item Test1 =
-			new Item(1000, "Default Ship", 0,false);
+			new Item(1000, "Default Ship", 0, false);
 	private static final Item Test2 =
-			new Item(1001, "Store Ship 1", 100,false);
+			new Item(1001, "Store Ship 1", 100, false);
 	private static final Item Test3 =
-			new Item(1002, "Store Ship 2", 1000,false);
+			new Item(1002, "Store Ship 2", 1000, false);
 	private static final Item Test4 =
 			new Item(2000, "Default BGM", 0);
 	private static final Item Test5 =
@@ -160,12 +163,13 @@ public final class Core {
 	private static final Item Test6 =
 			new Item(2002, "Store BGM 2", 1000);
 
+	private static final SoundManager soundManager = new SoundManager();
+
 
 	/**
 	 * Test implementation.
 	 *
-	 * @param args
-	 *             Program args, ignored.
+	 * @param args Program args, ignored.
 	 */
 	public static void main(final String[] args) {
 		try {
@@ -193,8 +197,8 @@ public final class Core {
 		/** Test only !!
 		 * You can add item max 15
 		 * If you have fewer than 15 items to add, refer to DrawManager's drawshop method */
-		Inventory.inventory_ship=new ArrayList<Item>();
-		Inventory.inventory_bgm=new ArrayList<Item>();
+		Inventory.inventory_ship = new ArrayList<Item>();
+		Inventory.inventory_bgm = new ArrayList<Item>();
 		Inventory.inventory_ship.add(Test1);
 		Inventory.inventory_bgm.add(Test4);
 		Inventory.inventory_ship.get(0).appliedp = true;
@@ -233,22 +237,24 @@ public final class Core {
 			switch (returnCode) {
 
 
-
-			case 1:
-				// Main menu.
-				currentScreen = new TitleScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " title screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing title screen.");
-				break;
-			case 2:
-				//level
-				currentScreen = new LevelScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " setting screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				break;
+				case 1:
+					// Main menu.
+					if (!soundManager.checkMusic(main)) startMusic(main);
+					currentScreen = new TitleScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " title screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing title screen.");
+					break;
+				case 2:
+					//level
+					startMusic(click);
+					currentScreen = new LevelScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " setting screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing setting screen.");
+					break;
 
 				case 101:
 					// Game & score
@@ -256,12 +262,14 @@ public final class Core {
 					Scanner sc = new Scanner(System.in);
 					LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 					diff = sc.nextInt();
-					while(diff < 0 || diff > 3){
-						new Sound().backroundmusic();
+					while (diff < 0 || diff > 3) {
+
 						LOGGER.info("Select your difficulty 0 is practice, 1 is easy, 2 is normal, 3 is hard");
 						diff = sc.nextInt();
 					}
-					if(diff == 0) {
+					stopMusic(main);
+					startMusic(ingame);
+					if (diff == 0) {
 						do {
 							// One extra live every few levels.
 							boolean bonusLife = gameState.getLevel()
@@ -285,7 +293,7 @@ public final class Core {
 									gameState.getShipsDestroyed(), 0);
 
 						} while (gameState.getLivesRemaining() > 0
-								&& gameState.getLevel()%NUM_LEVELS != 0);
+								&& gameState.getLevel() % NUM_LEVELS != 0);
 
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " score screen at " + FPS + " fps, with a score of "
@@ -298,7 +306,6 @@ public final class Core {
 						LOGGER.info("Closing score screen.");
 					} else {
 						do {
-							new Sound().backroundmusic();
 							// One extra live every few levels.
 							boolean bonusLife = gameState.getLevel()
 									% EXTRA_LIFE_FRECUENCY == 0
@@ -322,7 +329,7 @@ public final class Core {
 									gameState.getCoin());
 
 						} while (gameState.getLivesRemaining() > 0
-								&& gameState.getLevel()%NUM_LEVELS != 0);
+								&& gameState.getLevel() % NUM_LEVELS != 0);
 
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " score screen at " + FPS + " fps, with a score of "
@@ -336,68 +343,73 @@ public final class Core {
 					}
 					break;
 
-			case 3:
-				// High scores.
-				currentScreen = new HighScoreScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " high score screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing high score screen.");
-				break;
-			case 4:
-				//Setting.
-				currentScreen = new SettingScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " setting screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing setting screen.");
-				break;
-			case 5:
-				//Store.
-				currentScreen = new ShopScreen(width, height, FPS, 1);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " store screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing store screen.");
-				break;
+				case 3:
+					// High scores.
+					startMusic(click);
+					currentScreen = new HighScoreScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " high score screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing high score screen.");
+					break;
+				case 4:
+					//Setting.
+					startMusic(click);
+					currentScreen = new SettingScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " setting screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing setting screen.");
+					break;
+				case 5:
+					//Store.
+					startMusic(click);
+					currentScreen = new ShopScreen(width, height, FPS, 1);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " store screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing store screen.");
+					break;
 
-			case 400050:
-				//HUDSettingScreen.
-				currentScreen = new HUDSettingScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " HUDSetting screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing HUDSetting screen.");
-				break;
+				case 400050:
+					//HUDSettingScreen.
+					startMusic(click);
+					currentScreen = new HUDSettingScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " HUDSetting screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing HUDSetting screen.");
+					break;
 
-            case 400010:
-	            // Main menu.
-	            /* This makes the old window disappear */
-	            Frame old_frame = frame;
-	            /* This creates a new window with new width & height values */
-	            frame = new Frame(WIDTH, HEIGHT);
-	            DrawManager.getInstance().setFrame(frame);
-	            width = frame.getWidth();
-	            height = frame.getHeight();
-	            currentScreen = new TitleScreen(width, height, FPS);
-	            old_frame.dispose();
-	            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-			            + " title screen at " + FPS + " fps.");
-	            returnCode = frame.setScreen(currentScreen);
-	            LOGGER.info("Closing title screen.");
-	            break;
+				case 400010:
+					// Main menu.
+					/* This makes the old window disappear */
+					Frame old_frame = frame;
+					/* This creates a new window with new width & height values */
+					frame = new Frame(WIDTH, HEIGHT);
+					DrawManager.getInstance().setFrame(frame);
+					width = frame.getWidth();
+					height = frame.getHeight();
+					currentScreen = new TitleScreen(width, height, FPS);
+					old_frame.dispose();
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " title screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing title screen.");
+					break;
 
-			case 400060:
-				//HelpScreen.
-				currentScreen = new HelpScreen(width, height, FPS);
-				LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-						+ " Help screen at " + FPS + " fps.");
-				returnCode = frame.setScreen(currentScreen);
-				LOGGER.info("Closing Help screen.");
-				break;
+				case 400060:
+					//HelpScreen.
+					startMusic(click);
+					currentScreen = new HelpScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " Help screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing Help screen.");
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 
 		} while (returnCode != 0);
@@ -406,7 +418,6 @@ public final class Core {
 		fileHandler.close();
 		System.exit(0);
 	}
-
 
 
 	/**
@@ -454,9 +465,8 @@ public final class Core {
 
 	/**
 	 * Controls creation of new cooldowns.
-	 * 
-	 * @param milliseconds
-	 *            Duration of the cooldown.
+	 *
+	 * @param milliseconds Duration of the cooldown.
 	 * @return A new cooldown.
 	 */
 	public static Cooldown getCooldown(final int milliseconds) {
@@ -465,11 +475,9 @@ public final class Core {
 
 	/**
 	 * Controls creation of new cooldowns with variance.
-	 * 
-	 * @param milliseconds
-	 *            Duration of the cooldown.
-	 * @param variance
-	 *            Variation in the cooldown duration.
+	 *
+	 * @param milliseconds Duration of the cooldown.
+	 * @param variance     Variation in the cooldown duration.
 	 * @return A new cooldown with variance.
 	 */
 	public static Cooldown getVariableCooldown(final int milliseconds,
@@ -482,7 +490,16 @@ public final class Core {
 		HEIGHT = height;
 	}
 
-	public static int getDiff(){
+	public static int getDiff() {
 		return diff;
 	}
+
+	public static void startMusic(SoundManager.Sound what) {
+		soundManager.startMusic(what);
+	}
+
+	public static void stopMusic(SoundManager.Sound what) {
+		soundManager.stopMusic(what);
+	}
+
 }
