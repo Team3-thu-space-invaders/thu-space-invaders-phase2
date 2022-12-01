@@ -608,6 +608,7 @@ public class GameScreen extends Screen {
 						this.ship.itemimgGet();
 					}
 				}else if (per == 1) {
+					startMusic(item2);
 					if (ship.getSHOOTING_INTERVAL() > 300) {
 						int shootingSpeed = (int) (ship.getSHOOTING_INTERVAL() -100);
 						ship.setSHOOTING_INTERVAL(shootingSpeed);
@@ -621,6 +622,7 @@ public class GameScreen extends Screen {
 					this.ship.itemimgGet();
 				}
 				else if (per == 2) {
+					startMusic(item3);
 					int shipSpeed = (int) (ship.getSPEED() + 1);
 					ship.setSPEED(shipSpeed);
 					this.logger.info("Acquire a item_shipSpeedUp," + shipSpeed + " Movement of the ship for each unit of time.");
