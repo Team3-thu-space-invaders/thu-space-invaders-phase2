@@ -11,8 +11,7 @@ import entity.*;
 
 import static engine.Core.startMusic;
 import static engine.Core.stopMusic;
-import static engine.SoundManager.Sound.getItem;
-import static engine.SoundManager.Sound.ingame;
+import static engine.SoundManager.Sound.*;
 
 
 /**
@@ -587,8 +586,8 @@ public class GameScreen extends Screen {
 				recyclable.add(item);
 				Random random = new Random();
 				int per = random.nextInt(6);
-				startMusic(getItem);
 				if (per == 0) {
+					startMusic(item1);
 					if (this.lives < 3) {
 						this.lives++;
 						this.logger.info("Acquire a item_lifePoint," + this.lives + " lives remaining.");
