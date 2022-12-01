@@ -301,9 +301,6 @@ public final class DrawManager {
         fontRegularMetrics = backBufferGraphics.getFontMetrics(fontRegular);
         fontRegular2Metrics = backBufferGraphics.getFontMetrics(fontRegular2);
         fontBigMetrics = backBufferGraphics.getFontMetrics(fontBig);
-
-        // drawBorders(screen);
-        // drawGrid(screen);
     }
 
     /**
@@ -379,12 +376,6 @@ public final class DrawManager {
      * @param score  Current score.
      */
     public void drawScore(final Screen screen, final int score) {
-		/*
-    	backBufferGraphics.setFont(fontRegular);
-      	backBufferGraphics.setColor(Color.WHITE);
-      	String scoreString = String.format("%04d", score);
-      	backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
-      	*/
         backBufferGraphics.setFont(fontRegular);
         backBufferGraphics.setColor(Color.WHITE);
 
@@ -470,7 +461,7 @@ public final class DrawManager {
      * @param screen Screen to draw on.
      */
     public void drawTitle(final Screen screen) {
-        String titleString = "Invaders";
+        String titleString = "Space Invaders";
         String instructionsString = "select with w+s / arrows, confirm with space";
 
         backBufferGraphics.setColor(Color.GRAY);
@@ -547,7 +538,6 @@ public final class DrawManager {
     }
 
     public void drawSettingItems(final Screen screen, final int option) {
-
         String screensizeString = "Screen Size";
         String mastersoundString = "Master Sound";
         String musicsoundString = "Music Sound";
@@ -623,8 +613,6 @@ public final class DrawManager {
         String SoundOption4 = "100%";
         String SoundOption5 = "0%";
 
-        // 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
-
         // screenSize
         if (option == 400010) {
             if (screenchange == 1) {
@@ -642,8 +630,7 @@ public final class DrawManager {
         } else {
             backBufferGraphics.setColor(Color.darkGray);
         }
-        // drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() /
-        // 3);
+
         drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() / 3);
 
         // Master sound, Music sound, Effect sound
