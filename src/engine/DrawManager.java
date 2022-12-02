@@ -279,7 +279,6 @@ public final class DrawManager {
      *
      * @param screen Screen to draw in.
      */
-    Color[] bg_colors = {Color.LIGHT_GRAY, Color.GRAY, Color.DARK_GRAY};
 
     public void initDrawing(final Screen screen) {
         backBuffer = new BufferedImage(screen.getWidth(), screen.getHeight(),
@@ -288,10 +287,12 @@ public final class DrawManager {
         graphics = frame.getGraphics();
         backBufferGraphics = backBuffer.getGraphics();
 
+        Color[] bg_colors = {new Color(153, 206, 255), new Color(70, 132, 194), new Color(5, 84, 163)};
+
         if (GameScreen.lives > 0 && GameScreen.lives <= 3) {
             backBufferGraphics.setColor(bg_colors[3 - GameScreen.lives]);
         } else {
-            backBufferGraphics.setColor(Color.BLACK);
+            backBufferGraphics.setColor(new Color(14, 49, 84));
         }
 
         backBufferGraphics
@@ -300,9 +301,6 @@ public final class DrawManager {
         fontRegularMetrics = backBufferGraphics.getFontMetrics(fontRegular);
         fontRegular2Metrics = backBufferGraphics.getFontMetrics(fontRegular2);
         fontBigMetrics = backBufferGraphics.getFontMetrics(fontBig);
-
-        // drawBorders(screen);
-        // drawGrid(screen);
     }
 
     /**
@@ -378,12 +376,6 @@ public final class DrawManager {
      * @param score  Current score.
      */
     public void drawScore(final Screen screen, final int score) {
-		/*
-    	backBufferGraphics.setFont(fontRegular);
-      	backBufferGraphics.setColor(Color.WHITE);
-      	String scoreString = String.format("%04d", score);
-      	backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
-      	*/
         backBufferGraphics.setFont(fontRegular);
         backBufferGraphics.setColor(Color.WHITE);
 
@@ -469,7 +461,7 @@ public final class DrawManager {
      * @param screen Screen to draw on.
      */
     public void drawTitle(final Screen screen) {
-        String titleString = "Invaders";
+        String titleString = "Space Invaders";
         String instructionsString = "select with w+s / arrows, confirm with space";
 
         backBufferGraphics.setColor(Color.GRAY);
@@ -546,7 +538,6 @@ public final class DrawManager {
     }
 
     public void drawSettingItems(final Screen screen, final int option) {
-
         String screensizeString = "Screen Size";
         String mastersoundString = "Master Sound";
         String musicsoundString = "Music Sound";
@@ -622,8 +613,6 @@ public final class DrawManager {
         String SoundOption4 = "100%";
         String SoundOption5 = "0%";
 
-        // 스크롤로 대체 예정이니까 Sound 담당하는 사람이 지우고 사용하면 됩니다.
-
         // screenSize
         if (option == 400010) {
             if (screenchange == 1) {
@@ -641,8 +630,7 @@ public final class DrawManager {
         } else {
             backBufferGraphics.setColor(Color.darkGray);
         }
-        // drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() /
-        // 3);
+
         drawRightRegular2String(screen, defaultScreenmessage, screen.getHeight() / 3);
 
         // Master sound, Music sound, Effect sound
@@ -858,17 +846,17 @@ public final class DrawManager {
         String accuracy = "Accuracy";
         String stage = "Stage";
 
-        backBufferGraphics.setColor(Color.gray);
+        backBufferGraphics.setColor(Color.black);
         backBufferGraphics.setFont(fontRegular);
-        backBufferGraphics.fillRect(0, 105, 450, 35);
+        backBufferGraphics.fillRect(0, 105, 480, 35);
 
-        backBufferGraphics.setColor(Color.red);
+        backBufferGraphics.setColor(Color.yellow);
         backBufferGraphics.drawString(name, 13, 105 + 24);
         backBufferGraphics.drawString(score, 63, 129);
-        backBufferGraphics.drawString(killed, 128, 129);
-        backBufferGraphics.drawString(bullet, 203, 129);
-        backBufferGraphics.drawString(accuracy, 290, 129);
-        backBufferGraphics.drawString(stage, 388, 129);
+        backBufferGraphics.drawString(killed, 125, 129);
+        backBufferGraphics.drawString(bullet, 195, 129);
+        backBufferGraphics.drawString(accuracy, 280, 129);
+        backBufferGraphics.drawString(stage, 377, 129);
 
     }
 
@@ -1306,4 +1294,3 @@ public final class DrawManager {
 
     }
 }
-

@@ -16,7 +16,9 @@ public class SoundManager {
         hit,
         main,
         click,
-        getItem
+        item1,
+        item2,
+        item3,
     }
 
     String ingame = "src/bgm/background.wav";
@@ -28,7 +30,11 @@ public class SoundManager {
     String gameOver = "src/bgm/gameOver.wav";
     String hit = "src/bgm/hit.wav";
     String click = "src/bgm/click.wav";
-    String getItem = "src/bgm/getItem.wav";
+    String item1 = "src/bgm/item1.wav";
+
+    String item2 = "src/bgm/item2.wav";
+
+    String item3 = "src/bgm/item3.wav";
 
     public void startMusic(Sound what) {
         String bgm = null;
@@ -72,8 +78,14 @@ public class SoundManager {
             case click:
                 bgm = click;
                 break;
-            case getItem:
-                bgm = getItem;
+            case item1:
+                bgm = item1;
+                break;
+            case item2:
+                bgm = item2;
+                break;
+            case item3:
+                bgm = item3;
                 break;
             default:
                 break;
