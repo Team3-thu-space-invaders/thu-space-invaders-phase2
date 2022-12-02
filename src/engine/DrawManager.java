@@ -432,15 +432,19 @@ public final class DrawManager {
             case 1002 -> dummyShip = new Ship(0, 0, Color.BLUE);
         }
 
-        if (lives == -99) {
-            backBufferGraphics.drawString("Infin.", 20, 25);
-            drawEntity(dummyShip, 40 + 35, 10);
-        } else {
-            backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
-            for (int i = 0; i < lives; i++)
-                drawEntity(dummyShip, 40 + 35 * i, 10);
-        }
-    }
+        if(lives == -99) {
+			backBufferGraphics.drawString("Infin.", 20, 25);	
+			drawEntity(dummyShip, 40 + 35, 10);
+		}else if(lives == 1) {
+			backBufferGraphics.setColor(Color.RED);
+			backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
+			for (int i = 0; i < lives; i++)
+				drawEntity(dummyShip, 40 + 35 * i, 10);
+		}else{backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
+				for (int i = 0; i < lives; i++)
+					drawEntity(dummyShip, 40 + 35 * i, 10);
+		}
+	}
 
     /**
      * Draws a thick line from side to side of the screen.
