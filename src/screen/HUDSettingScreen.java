@@ -123,7 +123,7 @@ public class HUDSettingScreen extends Screen {
             return Color.RED;
         }
         else if(HUDSettingScreen.colorchange == 3){
-            return Color.BLUE;
+            return Color.YELLOW;
         }
         else{
             return Color.GREEN;
