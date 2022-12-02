@@ -285,9 +285,7 @@ public class PracticeScreen extends Screen {
 				if (checkCollision(bullet, this.ship) && !this.levelFinished) {
 					recyclable.add(bullet);
 					if (!this.ship.isDestroyed()) {
-						// ������ ����
 						this.ship.destroy();
-						//this.lives--;
 						this.logger.info("Hit on player ship, But player is invincibility");
 					}
 				}
