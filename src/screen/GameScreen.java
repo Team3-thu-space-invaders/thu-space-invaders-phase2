@@ -63,6 +63,8 @@ public class GameScreen extends Screen {
 	 * Current difficulty level number.
 	 */
 	private int level;
+	/*타이머*/
+	private long timer;
 	/**
 	 * Formation of enemy ships.
 	 */
@@ -100,7 +102,8 @@ public class GameScreen extends Screen {
 
 	private Set<BulletH> bulletsH;
 
-
+	/** warning bool값 */
+	private boolean isWarning = false;
 	/** Current score. */
 	private int score;
 	/** Current coin. */
@@ -326,6 +329,14 @@ public class GameScreen extends Screen {
 		}
 		else if (this.ship.item_number == 3){
 			drawManager.drawimg("item_movespeed", this.ship.getPositionX()+15, this.ship.getPositionY()-25, 33, 33);
+		}
+		/* 잠깐 warning띄움*/
+		if (lives == 1 && isWarning == false){
+			drawManager.drawimg("life_warning",0,0,33,33);
+			timer = System.currentTimeMillis();
+			long coolLeft = timer / 1000L + 1 - System.currentTimeMillis() / 1000L;
+			if (coolLeft <= 0L)
+				isWarning = true;
 		}
 		if (this.enemyShipSpecial != null)
 			drawManager.drawEntity(this.enemyShipSpecial,

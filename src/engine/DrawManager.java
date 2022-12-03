@@ -243,7 +243,7 @@ public final class DrawManager {
             imagemap.put("item_heart", fileManager.loadImage("heart.png"));
             imagemap.put("item_bulletspeed", fileManager.loadImage("bulspeed.png"));
             imagemap.put("item_movespeed", fileManager.loadImage("movspeed.png"));
-
+            imagemap.put("life_warning", fileManager.loadImage("lifeWarn.png"));
 
         } catch (IOException e) {
             logger.warning("Loading failed.");
