@@ -66,16 +66,16 @@ public class Ship extends Entity {
 		this.destructionCooldown = Core.getCooldown(destructCool);
 		switch (Core.getDiff()) {
 			case 0:
-				this.SPEED = 2;
+				this.SPEED = 6;
 				break;
 			case 1:
-				this.SPEED = 1;
+				this.SPEED = 9;
 				break;
 			case 2:
-				this.SPEED = 5;
+				this.SPEED = 12;
 				break;
 			case 3:
-				this.SPEED = 10;
+				this.SPEED = 15;
 				break;
 		}
 	}
