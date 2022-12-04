@@ -72,9 +72,11 @@ public final class FileManager {
 	 */
 	public void loadSprite(final Map<SpriteType, boolean[][]> spriteMap)
 			throws IOException {
+		InputStream inputStream = null;
 
-		try (InputStream inputStream = DrawManager.class.getClassLoader()
-				.getResourceAsStream("graphics")) {
+		try {
+			inputStream = DrawManager.class.getClassLoader()
+					.getResourceAsStream("graphics");
 			char c;
 
 			// Sprite loading.
@@ -93,6 +95,9 @@ public final class FileManager {
 					}
 				logger.fine("Sprite " + sprite.getKey() + " loaded.");
 			}
+			if (inputStream != null)
+				inputStream.close();
+		} finally {
 			if (inputStream != null)
 				inputStream.close();
 		}
