@@ -432,15 +432,19 @@ public final class DrawManager {
             case 1002 -> dummyShip = new Ship(0, 0, Color.BLUE);
         }
 
-        if (lives == -99) {
-            backBufferGraphics.drawString("Infin.", 20, 25);
-            drawEntity(dummyShip, 40 + 35, 10);
-        } else {
-            backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
-            for (int i = 0; i < lives; i++)
-                drawEntity(dummyShip, 40 + 35 * i, 10);
-        }
-    }
+        if(lives == -99) {
+			backBufferGraphics.drawString("Infin.", 20, 25);	
+			drawEntity(dummyShip, 40 + 35, 10);
+		}else if(lives == 1) {
+			backBufferGraphics.setColor(Color.RED);
+			backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
+			for (int i = 0; i < lives; i++)
+				drawEntity(dummyShip, 40 + 35 * i, 10);
+		}else{backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
+				for (int i = 0; i < lives; i++)
+					drawEntity(dummyShip, 40 + 35 * i, 10);
+		}
+	}
 
     /**
      * Draws a thick line from side to side of the screen.
@@ -909,7 +913,7 @@ public final class DrawManager {
         String instructionsString = "Press Space to return";
         String option1 = "GREEN";
         String option2 = "RED";
-        String option3 = "BLUE";
+        String option3 = "YELLOW";
 
         backBufferGraphics.setColor(HUDSettingScreen.getScreenColor());
         drawCenteredBigString(screen, HUDString, screen.getHeight() / 8);
@@ -932,7 +936,7 @@ public final class DrawManager {
                 / 3 * 2 + fontRegularMetrics.getHeight() * 2);
 
         if (option == 3)
-            backBufferGraphics.setColor(Color.BLUE);
+            backBufferGraphics.setColor(Color.YELLOW);
         else
             backBufferGraphics.setColor(Color.WHITE);
         drawCenteredRegularString(screen, option3, screen.getHeight() / 3
